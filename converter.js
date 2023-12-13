@@ -18,7 +18,7 @@ function convertToCSV() {
 
         try {
             const convertedData = parseAndConvert(content, file.name.toLowerCase(), delimiter);
-            outputArea.textContent = convertedData;
+            displayResult(convertedData);
         } catch (error) {
             alert(`Error: ${error}`);
         }
@@ -44,34 +44,6 @@ function jsonToCsv(data, delimiter) {
     const rows = data.map(entry => Object.values(entry));
     const csvContent = [headers.join(delimiter)].concat(rows.map(row => row.join(delimiter)));
     return csvContent.join('\n');
-}
-function convertToCSV() {
-    const fileInput = document.getElementById('fileInput');
-    const delimiterInput = document.getElementById('delimiter');
-    const outputArea = document.getElementById('output');
-
-    const file = fileInput.files[0];
-    const delimiter = delimiterInput.value || ',';
-
-    if (!file) {
-        alert('Please choose a file.');
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-        const content = event.target.result;
-
-        try {
-            const convertedData = parseAndConvert(content, file.name.toLowerCase(), delimiter);
-            displayResult(convertedData);
-        } catch (error) {
-            alert(`Error: ${error}`);
-        }
-    };
-
-    reader.readAsText(file);
 }
 
 function displayResult(data) {
